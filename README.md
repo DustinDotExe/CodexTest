@@ -1,10 +1,19 @@
-# CodexTest
-Testing OpenAI Codex
+# Kanban Board Web App
 
-This repository contains a simple responsive web application with three pages:
+A lightweight, local-first kanban board you can use for personal workflow tracking.
 
-- **index.html** – the home page
-- **about.html** – information about the site
-- **contact.html** – a contact form that displays a thank-you message
+## Features
 
-To view the site, open `index.html` in a web browser.
+- Create tasks with title, details, and priority
+- Move tasks between **To Do**, **Doing**, and **Done**
+- Use drag-and-drop or move buttons
+- Delete tasks you no longer need
+- Auto-saves board state to browser `localStorage`
+
+## Run
+
+Open `index.html` directly in your browser.
+
+## Notes
+
+All data is stored in your browser only.

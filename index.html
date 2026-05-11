@@ -3,29 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Codex WebApp</title>
+    <title>Workflow Kanban Board</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Codex WebApp</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="app-header">
+        <h1>My Kanban</h1>
+        <form id="add-task-form" class="add-task-form">
+            <input id="task-title" name="title" type="text" placeholder="New task title" maxlength="120" required>
+            <textarea id="task-desc" name="description" placeholder="Optional details" rows="2" maxlength="400"></textarea>
+            <select id="task-priority" name="priority">
+                <option value="low">Low priority</option>
+                <option value="medium" selected>Medium priority</option>
+                <option value="high">High priority</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
     </header>
+
     <main>
-        <section class="hero">
-            <h2>Responsive Web Application</h2>
-            <p>This is the home page content.</p>
+        <section class="board" id="board">
+            <div class="column" data-column="todo">
+                <h2>To Do</h2>
+                <div class="task-list" id="todo-list"></div>
+            </div>
+            <div class="column" data-column="doing">
+                <h2>Doing</h2>
+                <div class="task-list" id="doing-list"></div>
+            </div>
+            <div class="column" data-column="done">
+                <h2>Done</h2>
+                <div class="task-list" id="done-list"></div>
+            </div>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2025 Codex WebApp</p>
-    </footer>
+
+    <template id="task-template">
+        <article class="task" draggable="true">
+            <header>
+                <h3 class="task-title"></h3>
+                <span class="priority"></span>
+            </header>
+            <p class="task-desc"></p>
+            <footer class="task-actions">
+                <button data-action="left" title="Move left">←</button>
+                <button data-action="right" title="Move right">→</button>
+                <button data-action="delete" title="Delete task">Delete</button>
+            </footer>
+        </article>
+    </template>
+
     <script src="script.js"></script>
 </body>
 </html>
