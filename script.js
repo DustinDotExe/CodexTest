@@ -75,7 +75,12 @@ function renderTask(task, column) {
 
     const priorityNode = node.querySelector('.priority');
     priorityNode.textContent = task.priority;
-    priorityNode.classList.add(task.priority);
+    const priorityClasses = {
+        low: ['bg-lime-300', 'text-zinc-950'],
+        medium: ['bg-amber-300', 'text-zinc-950'],
+        high: ['bg-rose-300', 'text-zinc-950']
+    };
+    priorityNode.classList.add(...(priorityClasses[task.priority] || priorityClasses.medium));
 
     node.querySelectorAll('button').forEach((btn) => {
         btn.addEventListener('click', () => handleTaskAction(task.id, column, btn.dataset.action));
@@ -110,14 +115,14 @@ function setupDragAndDrop() {
     document.querySelectorAll('.column').forEach((columnEl) => {
         columnEl.addEventListener('dragover', (event) => {
             event.preventDefault();
-            columnEl.classList.add('drag-over');
+            columnEl.classList.add('translate-x-[-2px]', 'translate-y-[-2px]', 'shadow-[8px_8px_0_0_#000]', 'outline', 'outline-[3px]', 'outline-black');
         });
 
-        columnEl.addEventListener('dragleave', () => columnEl.classList.remove('drag-over'));
+        columnEl.addEventListener('dragleave', () => columnEl.classList.remove('translate-x-[-2px]', 'translate-y-[-2px]', 'shadow-[8px_8px_0_0_#000]', 'outline', 'outline-[3px]', 'outline-black'));
 
         columnEl.addEventListener('drop', (event) => {
             event.preventDefault();
-            columnEl.classList.remove('drag-over');
+            columnEl.classList.remove('translate-x-[-2px]', 'translate-y-[-2px]', 'shadow-[8px_8px_0_0_#000]', 'outline', 'outline-[3px]', 'outline-black');
 
             const data = JSON.parse(event.dataTransfer.getData('text/plain'));
             if (!data?.taskId || !data?.fromColumn) return;
@@ -147,5 +152,5 @@ function onDragStart(event) {
 }
 
 function onDragEnd() {
-    document.querySelectorAll('.column').forEach((col) => col.classList.remove('drag-over'));
+    document.querySelectorAll('.column').forEach((col) => col.classList.remove('translate-x-[-2px]', 'translate-y-[-2px]', 'shadow-[8px_8px_0_0_#000]', 'outline', 'outline-[3px]', 'outline-black'));
 }

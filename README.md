@@ -1,6 +1,6 @@
 # Kanban Board Web App
 
-A lightweight, local-first kanban board you can use for personal workflow tracking.
+A lightweight, local-first Kanban board for personal workflow tracking.
 
 ## Features
 
@@ -9,10 +9,13 @@ A lightweight, local-first kanban board you can use for personal workflow tracki
 - Use drag-and-drop or move buttons
 - Delete tasks you no longer need
 - Auto-saves board state to browser `localStorage`
+- Responsive neobrutalist UI built with Tailwind utility classes
 
 ## Run
 
 Open `index.html` directly in your browser.
+
+> Note: Tailwind is loaded from the CDN in `index.html`, so internet access is needed for full styling.
 
 ## Notes
 

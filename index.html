@@ -4,51 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workflow Kanban Board</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header class="app-header">
-        <h1>My Kanban</h1>
-        <form id="add-task-form" class="add-task-form">
-            <input id="task-title" name="title" type="text" placeholder="New task title" maxlength="120" required>
-            <textarea id="task-desc" name="description" placeholder="Optional details" rows="2" maxlength="400"></textarea>
-            <select id="task-priority" name="priority">
-                <option value="low">Low priority</option>
-                <option value="medium" selected>Medium priority</option>
-                <option value="high">High priority</option>
-            </select>
-            <button type="submit">Add Task</button>
-        </form>
+<body class="min-h-screen bg-zinc-100 text-zinc-950 antialiased">
+    <header class="sticky top-0 z-20 border-b-[3px] border-black bg-zinc-100">
+        <div class="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6">
+            <h1 class="text-2xl font-black uppercase tracking-wide sm:text-3xl">My Kanban</h1>
+            <form id="add-task-form" class="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-12" aria-label="Add new task">
+                <input
+                    id="task-title"
+                    name="title"
+                    type="text"
+                    placeholder="New task title"
+                    maxlength="120"
+                    required
+                    class="lg:col-span-4 w-full border-[3px] border-black bg-white px-3 py-2 text-base font-semibold placeholder:text-zinc-500 focus:outline-none focus:ring-0"
+                >
+                <textarea
+                    id="task-desc"
+                    name="description"
+                    placeholder="Optional details"
+                    rows="2"
+                    maxlength="400"
+                    class="lg:col-span-4 w-full resize-y border-[3px] border-black bg-white px-3 py-2 text-base leading-5 placeholder:text-zinc-500 focus:outline-none focus:ring-0"
+                ></textarea>
+                <select
+                    id="task-priority"
+                    name="priority"
+                    class="lg:col-span-2 w-full border-[3px] border-black bg-white px-3 py-2 text-base font-semibold focus:outline-none focus:ring-0"
+                    aria-label="Task priority"
+                >
+                    <option value="low">Low priority</option>
+                    <option value="medium" selected>Medium priority</option>
+                    <option value="high">High priority</option>
+                </select>
+                <button
+                    type="submit"
+                    class="lg:col-span-2 border-[3px] border-black bg-cyan-400 px-4 py-2 text-base font-black uppercase tracking-wide shadow-[4px_4px_0_0_#000] transition active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
+                >
+                    Add Task
+                </button>
+            </form>
+        </div>
     </header>
 
-    <main>
-        <section class="board" id="board">
-            <div class="column" data-column="todo">
-                <h2>To Do</h2>
-                <div class="task-list" id="todo-list"></div>
+    <main class="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6">
+        <section class="grid grid-cols-1 gap-4 md:grid-cols-3" id="board" aria-label="Kanban board">
+            <div class="column border-[3px] border-black bg-amber-200 p-3 shadow-[6px_6px_0_0_#000]" data-column="todo">
+                <h2 class="mb-3 text-lg font-black uppercase tracking-wide">To Do</h2>
+                <div class="task-list grid gap-3" id="todo-list"></div>
             </div>
-            <div class="column" data-column="doing">
-                <h2>Doing</h2>
-                <div class="task-list" id="doing-list"></div>
+            <div class="column border-[3px] border-black bg-fuchsia-200 p-3 shadow-[6px_6px_0_0_#000]" data-column="doing">
+                <h2 class="mb-3 text-lg font-black uppercase tracking-wide">Doing</h2>
+                <div class="task-list grid gap-3" id="doing-list"></div>
             </div>
-            <div class="column" data-column="done">
-                <h2>Done</h2>
-                <div class="task-list" id="done-list"></div>
+            <div class="column border-[3px] border-black bg-lime-200 p-3 shadow-[6px_6px_0_0_#000]" data-column="done">
+                <h2 class="mb-3 text-lg font-black uppercase tracking-wide">Done</h2>
+                <div class="task-list grid gap-3" id="done-list"></div>
             </div>
         </section>
     </main>
 
     <template id="task-template">
-        <article class="task" draggable="true">
-            <header>
-                <h3 class="task-title"></h3>
-                <span class="priority"></span>
+        <article class="task border-[3px] border-black bg-white p-3 shadow-[4px_4px_0_0_#000]" draggable="true">
+            <header class="flex items-start justify-between gap-2">
+                <h3 class="task-title text-base font-extrabold leading-tight"></h3>
+                <span class="priority border-2 border-black px-2 py-0.5 text-xs font-black uppercase tracking-wide"></span>
             </header>
-            <p class="task-desc"></p>
-            <footer class="task-actions">
-                <button data-action="left" title="Move left">←</button>
-                <button data-action="right" title="Move right">→</button>
-                <button data-action="delete" title="Delete task">Delete</button>
+            <p class="task-desc mt-2 whitespace-pre-wrap text-sm leading-5 text-zinc-700"></p>
+            <footer class="task-actions mt-3 flex gap-2">
+                <button data-action="left" title="Move left" class="border-[3px] border-black bg-violet-300 px-2 py-1 text-sm font-black shadow-[3px_3px_0_0_#000] transition active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">←</button>
+                <button data-action="right" title="Move right" class="border-[3px] border-black bg-violet-300 px-2 py-1 text-sm font-black shadow-[3px_3px_0_0_#000] transition active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">→</button>
+                <button data-action="delete" title="Delete task" class="ml-auto border-[3px] border-black bg-rose-500 px-3 py-1 text-sm font-black text-white shadow-[3px_3px_0_0_#000] transition active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">Delete</button>
             </footer>
         </article>
     </template>
